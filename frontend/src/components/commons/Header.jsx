@@ -1,4 +1,4 @@
-import { Drawer } from "./Drawer";
+import { Drawer } from "../drawer/Drawer";
 import { AuthStatus } from "../login/AuthStatus";
 
 export const Header = () => {
