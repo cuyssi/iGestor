@@ -2,8 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { openDrawer, closeDrawer } from "./DrawerSlice";
 import { Menu } from "lucide-react";
 import { ButtonClose } from "../commons/buttons/ButtonClose";
+import { AuthStatus } from "../login/AuthStatus";
+import { MenuSection } from "../commons/menu/MenuSection";
 
-export const Drawer = ({ children }) => {
+export const Drawer = () => {
     const dispatch = useDispatch();
     const isOpen = useSelector((state) => state.drawer.isOpen);
 
@@ -14,7 +16,7 @@ export const Drawer = ({ children }) => {
                 onClick={() => dispatch(openDrawer())}
                 className="text-blue-500 h-full pr-3 hover:text-blue-700 transition"
             >
-                <Menu />
+                <Menu className="icons-dynamic" />
             </button>
 
             <div
@@ -26,16 +28,17 @@ export const Drawer = ({ children }) => {
             />
 
             <aside
-                className={`absolute top-0 right-0 h-full w-70 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
+                className={`absolute top-0 right-0 h-full w-70 subbg-dynamic shadow-lg transform transition-transform duration-300 ease-in-out
         ${isOpen ? "-translate-x-0" : "translate-x-full"}`}
                 role="dialog"
                 aria-modal="true"
             >
-                <div className="flex items-center justify-between p-4 border-b">
+                <div className="relative flex items-center justify-between p-4 border-b bg-dynamic">
                     <h2 className="text-lg font-semibold text-blue-700">Menú</h2>
                     <ButtonClose onClick={() => dispatch(closeDrawer())} />
                 </div>
-                {children}
+                <AuthStatus />
+                <MenuSection />
             </aside>
         </div>
     );

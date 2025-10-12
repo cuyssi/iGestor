@@ -36,7 +36,7 @@ function App() {
             className="
         fixed inset-0
         sm:flex sm:items-center sm:justify-center sm:bg-gray-400
-        bg-white
+        bg-white 
       "
         >
             <div
@@ -49,7 +49,7 @@ function App() {
         "
             >
                 <Header />
-                <main className="flex-1 overflow-y-auto bg-bg">
+                <main className="flex-1 overflow-y-auto">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/calendar" element={<Calendar />} />

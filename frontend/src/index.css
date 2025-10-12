@@ -1,10 +1,63 @@
 @import "tailwindcss";
 
-#root, body, html {
+#root,
+body,
+html {
     width: 100%;
     height: 100vh;
     padding: 0;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(118, 116, 116);    
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --color-bg: rgb(253, 253, 253);
+    --color-subbg: rgb(255, 255, 255);
+
+    --color-border: rgb(200, 200, 205);
+
+    --color-icons: rgb(77, 154, 226);
+
+    --color-text: gray;
+    --color-subtext: rgb(234, 236, 243);
+
+    --color-button: gray;
+}
+
+.dark {
+    --color-bg: rgb(65, 64, 64);
+    --color-subbg: rgb(96, 92, 92);
+
+    --color-border: rgb(108, 150, 234);
+
+    --color-icons: hsl(210, 82%, 65%);
+
+    --color-text: rgb(153, 171, 238);
+    --color-subtext: rgb(193, 196, 205);
+
+    --color-button: gray;
+}
+
+.bg-dynamic {
+    background-color: var(--color-bg);
+}
+
+.subbg-dynamic {
+    background-color: var(--color-subbg);
+}
+
+.border-dynamic {
+    border-color: var(--color-border);
+}
+
+.text-dynamic {
+    color: var(--color-text);
+}
+
+.subtext-dynamic {
+    color: var(--color-subtext);
+}
+
+.icons-dynamic {
+    color: var(--color-icons);
 }

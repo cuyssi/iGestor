@@ -1,16 +1,18 @@
-import { defineConfig } from 'tailwindcss';
+import { defineConfig } from "tailwindcss";
 
 export default defineConfig({
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-      },
+    darkMode: "class",
+    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+    theme: {
+        extend: {
+            colors: {
+                bg: "var(--color-bg)",
+                border: "var(--color-border)",
+            },
+            fontFamily: {
+                poppins: ["Poppins", "sans-serif"],
+            },
+        },
     },
-  },
-  plugins: [],
+    plugins: [],
 });
