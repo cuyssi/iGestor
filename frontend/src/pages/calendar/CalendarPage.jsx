@@ -1,53 +1,78 @@
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import format from "date-fns/format";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import getDay from "date-fns/getDay";
-import es from "date-fns/locale/es";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import esLocale from "@fullcalendar/core/locales/es";
 import { useCalendarTurns } from "./useCalendarTurns";
-
-const locales = { es };
-const localizer = dateFnsLocalizer({ format, parse, startOfWeek, getDay, locales });
+import { useState } from "react";
+import { ModalCalendar } from "./ModalCalendar";
 
 export const CalendarPage = () => {
     const { events, loading } = useCalendarTurns();
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedTurn, setSelectedTurn] = useState(null); // <-- turno seleccionado
 
-    const eventStyleGetter = (event) => {
-        let backgroundColor = "#ccc";
-
-        if (event.title.startsWith("M")) backgroundColor = "#facc15";
-        if (event.title.startsWith("T")) backgroundColor = "#34d399";
-        if (event.title.startsWith("P")) backgroundColor = "#f472b6";
-        if (event.title.startsWith("D")) backgroundColor = "#a1a1aa";
-
-        return {
-            style: {
-                backgroundColor,
-                borderRadius: "6px",
-                color: "black",
-                border: "none",
-                padding: "4px",
-                fontWeight: "bold",
-                fontSize: "0.8rem",
-                textAlign: "center",
-            },
-        };
+    const handleEventClick = (clickInfo) => {
+        const ev = clickInfo.event;
+        setSelectedTurn({
+            turn: ev.title,
+            turn_start:
+                ev.extendedProps?.morning_start ||
+                ev.start?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            turn_end:
+                ev.extendedProps?.afternoon_end ||
+                ev.end?.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            morning_start: ev.extendedProps?.morning_start,
+            morning_end: ev.extendedProps?.morning_end,
+            afternoon_start: ev.extendedProps?.afternoon_start,
+            afternoon_end: ev.extendedProps?.afternoon_end,
+        });
+        setOpenModal(true);
     };
 
-    if (loading) return <p>Loading calendar...</p>;
+    if (loading) return <p>Cargando calendario...</p>;
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4 text-dynamic">📅 Calendar of shifts</h1>
-            <Calendar
-                localizer={localizer}
+            <FullCalendar
+                plugins={[dayGridPlugin, interactionPlugin]}
+                initialView="dayGridMonth"
+                firstDay={1}
+                locale={esLocale}
+                headerToolbar={{ right: "prev,next" }}
+                contentHeight={"auto"}
+                fixedWeekCount={false}
                 events={events}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 600 }}
-                eventPropGetter={eventStyleGetter}
+                eventContent={(arg) => (
+                    <div
+                        style={{
+                            backgroundColor:
+                                arg.event.title === "M"
+                                    ? "#27D6F5"
+                                    : arg.event.title === "T"
+                                    ? "#F2C950"
+                                    : arg.event.title === "P"
+                                    ? "#F07E3A"
+                                    : "#9EF252",
+                            borderRadius: "6px",
+                            width: "100%",
+                            height: "auto",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontWeight: "bold",
+                            fontSize: "1rem",
+                            textAlign: "center",
+                            padding: "10px",
+                        }}
+                    >
+                        {arg.event.title}
+                    </div>
+                )}
+                eventClick={handleEventClick}
             />
+            {selectedTurn && (
+                <ModalCalendar isOpen={openModal} onClose={() => setOpenModal(false)} selectedTurn={selectedTurn} />
+            )}
         </div>
     );
 };

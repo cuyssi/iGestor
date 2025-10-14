@@ -4,7 +4,7 @@ import { Footer } from "./components/commons/Footer";
 import { Home } from "./pages/home/Home";
 import { Settings } from "./pages/settings/Settings";
 import { CalendarPage } from "./pages/calendar/CalendarPage";
-import { Modal } from "./components/register/ModalRegister";
+import { ModalRegister } from "./components/register/ModalRegister";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "./components/register/modalRegisterSlice";
 import { useEffect } from "react";
@@ -56,7 +56,7 @@ function App() {
                         <Route path="/calendar" element={<CalendarPage />} />
                         <Route path="/settings" element={<Settings />} />
                     </Routes>
-                    <Modal open={openModal} onClose={() => dispatch(closeModal())} />
+                    <ModalRegister open={openModal} onClose={() => dispatch(closeModal())} />
                 </main>
                 <Footer />
             </div>

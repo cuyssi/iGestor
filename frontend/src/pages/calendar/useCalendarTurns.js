@@ -24,22 +24,20 @@ export const useCalendarTurns = () => {
                         const dateStr = dayDate.toISOString().split("T")[0];
 
                         if (turn.type === "partido") {
-                            if (turn.morning_start_time && turn.morning_end_time) {
-                                mapped.push({
-                                    title: "P-M",
-                                    start: new Date(`${dateStr}T${turn.morning_start_time}`),
-                                    end: new Date(`${dateStr}T${turn.morning_end_time}`),
-                                    allDay: false,
-                                });
-                            }
-                            if (turn.afternoon_start_time && turn.afternoon_end_time) {
-                                mapped.push({
-                                    title: "P-T",
-                                    start: new Date(`${dateStr}T${turn.afternoon_start_time}`),
-                                    end: new Date(`${dateStr}T${turn.afternoon_end_time}`),
-                                    allDay: false,
-                                });
-                            }
+                            mapped.push({
+                                title: "P",
+                                start: turn.morning_start_time
+                                    ? `${dateStr}T${turn.morning_start_time}`
+                                    : `${dateStr}T00:00`,
+                                end: turn.afternoon_end_time
+                                    ? `${dateStr}T${turn.afternoon_end_time}`
+                                    : `${dateStr}T23:59`,
+                                morning_start: turn.morning_start_time,
+                                morning_end: turn.morning_end_time,
+                                afternoon_start: turn.afternoon_start_time,
+                                afternoon_end: turn.afternoon_end_time,
+                                allDay: false,
+                            });
                         } else if (turn.type === "mañanas") {
                             mapped.push({
                                 title: "M",
