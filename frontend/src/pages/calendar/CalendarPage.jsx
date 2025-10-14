@@ -9,7 +9,7 @@ import { ModalCalendar } from "./ModalCalendar";
 export const CalendarPage = () => {
     const { events, loading } = useCalendarTurns();
     const [openModal, setOpenModal] = useState(false);
-    const [selectedTurn, setSelectedTurn] = useState(null); // <-- turno seleccionado
+    const [selectedTurn, setSelectedTurn] = useState(null);
 
     const handleEventClick = (clickInfo) => {
         const ev = clickInfo.event;
