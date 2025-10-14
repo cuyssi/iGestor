@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { closeModal } from "./modalSlice";
+import { closeModal } from "./modalRegisterSlice";
 import { createUser } from "../../services/createUser";
 import { postLogin } from "../../services/loginService";
 import { getCurrentUser } from "../../services/userService";

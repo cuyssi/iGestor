@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "./useLogin";
-import { Form } from "../commons/formComponents/Form";
+import { Form } from "../formComponents/Form";
 
 export const Login = ({ mode }) => {
     const [email, setEmail] = useState("");

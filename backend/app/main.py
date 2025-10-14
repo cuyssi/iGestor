@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
 from app.schemas import UserCreate, UserSchema
+from app.schemas import TurnCreate
+from app.models import Turn
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import UserLogin
 from app.security import (
@@ -64,3 +66,34 @@ def get_me(current_user: User = Depends(get_current_user)):
 @app.get("/users", response_model=list[UserSchema])
 def get_users(db: Session = Depends(get_db)):
     return db.query(User).all()
+
+
+@app.post("/turns")
+def create_turn(
+    turn: TurnCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    new_turn = Turn(
+        date=turn.date,
+        start_time=turn.start_time or "",
+        end_time=turn.end_time or "",
+        type=turn.type,
+        days=turn.days,
+        morning_start_time=turn.morning_start_time,
+        morning_end_time=turn.morning_end_time,
+        afternoon_start_time=turn.afternoon_start_time,
+        afternoon_end_time=turn.afternoon_end_time,
+        user_id=current_user.id,
+    )
+    db.add(new_turn)
+    db.commit()
+    db.refresh(new_turn)
+    return {"message": "Turno guardado", "turn": new_turn}
+
+
+@app.get("/turns")
+def get_turns(
+    db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    return db.query(Turn).filter(Turn.user_id == current_user.id).all()

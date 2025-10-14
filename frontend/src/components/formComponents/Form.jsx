@@ -1,9 +1,9 @@
 import { Input } from "./Input";
 import { ButtonDefault } from "../buttons/ButtonDefault";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../register/modalSlice";
-import { useRegister } from "../../register/useRegister";
-import { useLogin } from "../../login/useLogin";
+import { openModal } from "../register/modalRegisterSlice";
+import { useRegister } from "../register/useRegister";
+import { useLogin } from "../login/useLogin";
 import { useState } from "react";
 
 export const Form = ({ mode }) => {

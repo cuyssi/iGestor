@@ -2,13 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/commons/Header";
 import { Footer } from "./components/commons/Footer";
 import { Home } from "./pages/home/Home";
-import { Calendar } from "./pages/calendar/Calendar";
-import { Modal } from "./components/register/Modal";
+import { Settings } from "./pages/settings/Settings";
+import { CalendarPage } from "./pages/calendar/CalendarPage";
+import { Modal } from "./components/register/ModalRegister";
 import { useSelector, useDispatch } from "react-redux";
-import { closeModal } from "./components/register/modalSlice";
+import { closeModal } from "./components/register/modalRegisterSlice";
 import { useEffect } from "react";
 import { getCurrentUser } from "./services/userService";
-import { login, setTokenFromStorage } from "./components/login/AuthSlice"; // ajusta la ruta si es distinta
+import { login, setTokenFromStorage } from "./components/login/AuthSlice";
 
 import "./App.css";
 
@@ -52,7 +53,8 @@ function App() {
                 <main className="flex-1 overflow-y-auto">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/calendar" element={<Calendar />} />
+                        <Route path="/calendar" element={<CalendarPage />} />
+                        <Route path="/settings" element={<Settings />} />
                     </Routes>
                     <Modal open={openModal} onClose={() => dispatch(closeModal())} />
                 </main>

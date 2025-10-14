@@ -1,5 +1,5 @@
-import { Form } from "../commons/formComponents/Form";
-import { ButtonClose } from "../commons/buttons/ButtonClose";
+import { Form } from "../formComponents/Form";
+import { ButtonClose } from "../buttons/ButtonClose";
 
 export const Modal = ({ open, onClose }) => {
     if (!open) return null;

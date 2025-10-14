@@ -18,8 +18,8 @@ html {
 
     --color-icons: rgb(77, 154, 226);
 
-    --color-text: gray;
-    --color-subtext: rgb(234, 236, 243);
+    --color-text: rgb(72, 139, 216);
+    --color-subtext: rgb(143, 145, 150);
 
     --color-button: gray;
 }
@@ -60,4 +60,14 @@ html {
 
 .icons-dynamic {
     color: var(--color-icons);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: auto;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield
 }

@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { openDrawer, closeDrawer } from "./DrawerSlice";
 import { Menu } from "lucide-react";
-import { ButtonClose } from "../commons/buttons/ButtonClose";
+import { ButtonClose } from "../buttons/ButtonClose";
 import { AuthStatus } from "../login/AuthStatus";
-import { MenuSection } from "../commons/menu/MenuSection";
+import { MenuSection } from "../menu/MenuSection";
 
 export const Drawer = () => {
     const dispatch = useDispatch();
