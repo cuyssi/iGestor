@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { openDrawer, closeDrawer } from "./DrawerSlice";
-import { Menu } from "lucide-react";
+import { closeDrawer } from "./DrawerSlice";
 import { ButtonClose } from "../buttons/ButtonClose";
 import { AuthStatus } from "../login/AuthStatus";
 import { MenuSection } from "../menu/MenuSection";
@@ -10,15 +9,7 @@ export const Drawer = () => {
     const isOpen = useSelector((state) => state.drawer.isOpen);
 
     return (
-        <div className="z-50 overflow-hidden">
-            <button
-                aria-label="Abrir menú"
-                onClick={() => dispatch(openDrawer())}
-                className="text-blue-500 h-full pr-3 hover:text-blue-700 transition"
-            >
-                <Menu className="icons-dynamic" />
-            </button>
-
+        <div className="z-60 overflow-hidden">
             <div
                 className={`absolute top-0 left-0 h-full w-full bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
                     isOpen ? "opacity-100 visible" : "opacity-0 invisible"

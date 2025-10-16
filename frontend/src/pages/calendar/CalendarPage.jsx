@@ -3,13 +3,15 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import esLocale from "@fullcalendar/core/locales/es";
 import { useCalendarTurns } from "./useCalendarTurns";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ModalCalendar } from "./ModalCalendar";
 
 export const CalendarPage = () => {
     const { events, loading } = useCalendarTurns();
     const [openModal, setOpenModal] = useState(false);
     const [selectedTurn, setSelectedTurn] = useState(null);
+    const [title, setTitle] = useState("");
+    const calendarRef = useRef(null);
 
     const handleEventClick = (clickInfo) => {
         const ev = clickInfo.event;
@@ -29,19 +31,44 @@ export const CalendarPage = () => {
         setOpenModal(true);
     };
 
+    const goPrev = () => {
+        calendarRef.current.getApi().prev();
+    };
+
+    const goNext = () => {
+        calendarRef.current.getApi().next();
+    };
+
     if (loading) return <p>Cargando calendario...</p>;
 
     return (
-        <div className="p-4">
+        <div className="p-4 w-full">
+            <div className="flex justify-between items-center mb-2">
+                <button className="bg-gray-200 px-2 py-1 rounded" onClick={goPrev}>
+                    &lt;
+                </button>
+
+                <div className="text-center">
+                    <div className="text-xl font-bold">{title.split(" ")[0]}</div>
+                    <div className="text-lg">{title.split(" ")[1]}</div>
+                </div>
+
+                <button className="bg-gray-200 px-2 py-1 rounded" onClick={goNext}>
+                    &gt;
+                </button>
+            </div>
+
             <FullCalendar
+                ref={calendarRef}
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 firstDay={1}
                 locale={esLocale}
-                headerToolbar={{ right: "prev,next" }}
-                contentHeight={"auto"}
+                headerToolbar={false}
+                contentHeight="auto"
                 fixedWeekCount={false}
                 events={events}
+                eventClick={handleEventClick}
                 eventContent={(arg) => (
                     <div
                         style={{
@@ -62,14 +89,25 @@ export const CalendarPage = () => {
                             fontWeight: "bold",
                             fontSize: "1rem",
                             textAlign: "center",
-                            padding: "10px",
+                            padding: "5px",
                         }}
                     >
                         {arg.event.title}
                     </div>
                 )}
-                eventClick={handleEventClick}
+                datesSet={(info) => {
+                    const date = info.start;
+                    const formatted = new Intl.DateTimeFormat("es-ES", {
+                        month: "long",
+                        year: "numeric",
+                    })
+                        .format(date)
+                        .replace(" de ", " ")
+                        .replace(/^\w/, (c) => c.toUpperCase());
+                    setTitle(formatted);
+                }}
             />
+
             {selectedTurn && (
                 <ModalCalendar isOpen={openModal} onClose={() => setOpenModal(false)} selectedTurn={selectedTurn} />
             )}

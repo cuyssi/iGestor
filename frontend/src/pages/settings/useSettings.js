@@ -18,7 +18,7 @@ export const useSettings = () => {
 
     const saveToDB = async () => {
         try {
-            let baseDate = new Date(); // fecha inicial (hoy)
+            let baseDate = new Date();
 
             for (const block of confirmedBlocks) {
                 const { shift, startTime, endTime, splitShift, workDays, restDays, type } = block;
@@ -49,7 +49,6 @@ export const useSettings = () => {
 
                 await createTurn(shiftData);
 
-                // avanzamos la fecha base según los días trabajados o descansados
                 baseDate.setDate(baseDate.getDate() + days);
             }
 
@@ -62,6 +61,7 @@ export const useSettings = () => {
 
     return {
         confirmedBlocks,
+        setConfirmedBlocks,
         saveBlock,
         removeLastBlock,
         repeatPattern,

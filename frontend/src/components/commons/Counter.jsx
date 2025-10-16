@@ -23,7 +23,6 @@ export const Counter = ({ onChange, min = 0, max = 31, value = 0 }) => {
             </button>
             <input
                 value={count}
-                type="number"
                 min={min}
                 max={max}
                 onChange={(e) => handleUpdate(Number(e.target.value))}

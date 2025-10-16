@@ -1,10 +1,20 @@
-import { Drawer } from "../drawer/Drawer";
+import { Menu } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "../drawer/DrawerSlice";
 
 export const Header = () => {
+    const dispatch = useDispatch();
+
     return (
         <div className="flex justify-between items-center w-full h-[10%] shadow-[0px_2px_10px_rgba(0,0,0,0.5)] z-50 bg-dynamic p-1">
             <img src="logo.png" className="h-full" />
-            <Drawer />
+            <button
+                aria-label="Abrir menú"
+                onClick={() => dispatch(openDrawer())}
+                className="text-blue-500 h-full pr-3 hover:text-blue-700 transition"
+            >
+                <Menu className="icons-dynamic" />
+            </button>
         </div>
     );
 };

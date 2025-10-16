@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/commons/Header";
+import { Drawer } from "./components/drawer/Drawer";
 import { Footer } from "./components/commons/Footer";
 import { Home } from "./pages/home/Home";
 import { Settings } from "./pages/settings/Settings";
@@ -50,6 +51,7 @@ function App() {
         "
             >
                 <Header />
+                <Drawer />
                 <main className="flex-1 overflow-y-auto">
                     <Routes>
                         <Route path="/" element={<Home />} />

@@ -1,7 +1,7 @@
-// TurnBlock.jsx
 import { Container } from "../../components/commons/Container";
 import { Timer } from "../../components/commons/Timer";
 import { Counter } from "../../components/commons/Counter";
+import { ButtonDefault } from "../../components/buttons/ButtonDefault";
 
 export const WorkShifts = ({ data, handlers, saveBlocks }) => {
     const { handleChange, handleTimeChange, handleSplitChange } = handlers;
@@ -76,13 +76,8 @@ export const WorkShifts = ({ data, handlers, saveBlocks }) => {
                     </div>
                 ) : null}
 
-                <div className="mt-8 flex justify-center">
-                    <button
-                        onClick={saveBlocks}
-                        className="w-30 p-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-                    >
-                        Guardar
-                    </button>
+                <div className="flex justify-center">
+                    <ButtonDefault onClick={saveBlocks} className="bg-green-600 text-white" text="Guardar" />
                 </div>
             </div>
         </Container>
@@ -103,13 +98,8 @@ export const BreakBlock = ({ data, handlers, saveBlocks }) => {
                     max={31}
                 />
             </div>
-            <div className="mt-8 flex justify-center">
-                <button
-                    onClick={saveBlocks}
-                    className="w-30 p-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-                >
-                    Guardar
-                </button>
+            <div className="mt-4 flex justify-center">
+                <ButtonDefault onClick={saveBlocks} className="bg-green-600 text-white" text="Guardar" />
             </div>
         </Container>
     );
