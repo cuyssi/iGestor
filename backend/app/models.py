@@ -21,7 +21,7 @@ class Turn(Base):
     date = Column(DateTime, default=datetime.utcnow)
     start_time = Column(String, nullable=False)
     end_time = Column(String, nullable=False)
-    type = Column(String, default="normal")
+    shift = Column(String, default="descanso")
     days = Column(Integer, default=0)
     morning_start_time = Column(String, nullable=True)
     morning_end_time = Column(String, nullable=True)

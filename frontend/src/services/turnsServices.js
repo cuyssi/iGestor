@@ -13,18 +13,18 @@ export const createTurn = async (turn) => {
         morning_end_time,
         afternoon_start_time,
         afternoon_end_time,
-        type,
+        shift,
         days,
     } = turn;
 
     try {
         const payload = {
             date: new Date(date).toISOString(),
-            type,
+            shift,
             days,
         };
 
-        if (type === "partido") {
+        if (shift === "partido") {
             Object.assign(payload, {
                 morning_start_time,
                 morning_end_time,

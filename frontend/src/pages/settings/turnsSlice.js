@@ -14,21 +14,7 @@ const turnsSlice = createSlice({
         loading: false,
         error: null,
     },
-    reducers: {
-        setTurns(state, action) {
-            state.turns = action.payload;
-        },
-        addTurn(state, action) {
-            state.turns.push(action.payload);
-        },
-        updateTurn(state, action) {
-            const index = state.turns.findIndex((t) => t.id === action.payload.id);
-            if (index !== -1) state.turns[index] = action.payload;
-        },
-        removeTurn(state, action) {
-            state.turns = state.turns.filter((t) => t.id !== action.payload);
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchTurns.pending, (state) => {

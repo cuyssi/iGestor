@@ -78,7 +78,7 @@ def create_turn(
         date=turn.date,
         start_time=turn.start_time or "",
         end_time=turn.end_time or "",
-        type=turn.type,
+        shift=turn.shift,
         days=turn.days,
         morning_start_time=turn.morning_start_time,
         morning_end_time=turn.morning_end_time,

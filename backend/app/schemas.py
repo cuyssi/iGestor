@@ -28,7 +28,7 @@ class TurnCreate(BaseModel):
     date: datetime
     start_time: Optional[str] = None
     end_time: Optional[str] = None
-    type: str = "normal"
+    shift: str = "descanso"
     days: int = 0
     morning_start_time: Optional[str] = None
     morning_end_time: Optional[str] = None

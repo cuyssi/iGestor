@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { createTurn } from "../../services/turnsServices";
+import { useSelector } from "react-redux";
 
 export const useSettings = () => {
     const [confirmedBlocks, setConfirmedBlocks] = useState([]);
+    const { turns, loading } = useSelector((state) => state.turns);
 
     const saveBlock = (block) => {
         setConfirmedBlocks((prev) => [...prev, block]);
@@ -21,12 +23,11 @@ export const useSettings = () => {
             let baseDate = new Date();
 
             for (const block of confirmedBlocks) {
-                const { shift, startTime, endTime, splitShift, workDays, restDays, type } = block;
-                const days = type === "work" ? workDays : restDays;
+                const { shift, startTime, endTime, splitShift, days } = block;
 
                 let shiftData = {
                     date: baseDate.toISOString().split(".")[0],
-                    type: shift || "normal",
+                    shift: shift,
                     days,
                 };
 
@@ -37,7 +38,7 @@ export const useSettings = () => {
                         morning_end_time: `${splitShift.mañana.endHour}:${splitShift.mañana.endMinute}`,
                         afternoon_start_time: `${splitShift.tarde.hour}:${splitShift.tarde.minute}`,
                         afternoon_end_time: `${splitShift.tarde.endHour}:${splitShift.tarde.endMinute}`,
-                        type: "partido",
+                        shift: "partido",
                     };
                 } else {
                     shiftData = {
@@ -52,7 +53,7 @@ export const useSettings = () => {
                 baseDate.setDate(baseDate.getDate() + days);
             }
 
-            alert("Shifts saved successfully!");
+            alert("Patrón guardado!");
         } catch (error) {
             console.error("Error saving shifts:", error);
             alert("Error saving shifts");
@@ -60,6 +61,8 @@ export const useSettings = () => {
     };
 
     return {
+        turns,
+        loading,
         confirmedBlocks,
         setConfirmedBlocks,
         saveBlock,

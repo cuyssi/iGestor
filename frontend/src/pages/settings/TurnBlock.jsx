@@ -24,15 +24,17 @@ export const WorkShifts = ({ data, handlers, saveBlocks }) => {
                     </select>
                 </div>
 
-                <div className="flex justify-between items-center">
-                    <p>Días seguidos</p>
-                    <Counter
-                        value={Number(data.workDays)}
-                        onChange={(val) => handleChange("workDays", val)}
-                        min={1}
-                        max={31}
-                    />
-                </div>
+                {data.shift && (
+                    <div className="mt-2 flex justify-between items-center">
+                        <p>Días seguidos</p>
+                        <Counter
+                            value={Number(data.days)}
+                            onChange={(val) => handleChange("days", val)}
+                            min={1}
+                            max={31}
+                        />
+                    </div>
+                )}
 
                 {data.shift === "partido" ? (
                     <div className="flex flex-col gap-4">
@@ -40,7 +42,7 @@ export const WorkShifts = ({ data, handlers, saveBlocks }) => {
                             <fieldset key={part} className="border border-dynamic rounded p-2">
                                 <legend className="px-2 text-sm text-dynamic">Turno partido: {part}</legend>
 
-                                <p>Comienzo turno</p>
+                                <p>Comienzo de turno</p>
                                 <Timer
                                     hour={data.splitShift[part].hour}
                                     minute={data.splitShift[part].minute}
@@ -60,7 +62,7 @@ export const WorkShifts = ({ data, handlers, saveBlocks }) => {
                     </div>
                 ) : data.shift ? (
                     <div className="flex flex-col gap-2">
-                        <p>Comienzo turno</p>
+                        <p>Comienzo de turno</p>
                         <Timer
                             hour={data.startTime.hour}
                             minute={data.startTime.minute}
@@ -76,7 +78,7 @@ export const WorkShifts = ({ data, handlers, saveBlocks }) => {
                     </div>
                 ) : null}
 
-                <div className="flex justify-center">
+                <div className="mt-2 flex justify-center">
                     <ButtonDefault onClick={saveBlocks} className="bg-green-600 text-white" text="Guardar" />
                 </div>
             </div>
@@ -90,13 +92,8 @@ export const BreakBlock = ({ data, handlers, saveBlocks }) => {
     return (
         <Container w="100%" h="auto" className="flex flex-col">
             <div className="flex justify-between items-center text-base subtext-dynamic">
-                <p>Días descansos</p>
-                <Counter
-                    value={Number(data.restDays)}
-                    onChange={(val) => handleChange("restDays", val)}
-                    min={1}
-                    max={31}
-                />
+                <p>Días de descanso</p>
+                <Counter value={Number(data.days)} onChange={(val) => handleChange("days", val)} min={1} max={31} />
             </div>
             <div className="mt-4 flex justify-center">
                 <ButtonDefault onClick={saveBlocks} className="bg-green-600 text-white" text="Guardar" />

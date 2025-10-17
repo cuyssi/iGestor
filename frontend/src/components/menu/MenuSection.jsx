@@ -7,8 +7,8 @@ export const MenuSection = () => {
             <ContainerMenu text="Tema" className="relative flex items-center">
                 <ButtonTheme />
             </ContainerMenu>
-            <ContainerMenu link="/settings?mode=view" text="Ver patrón" />
-            <ContainerMenu link="/settings?mode=config" text="Añadir patrón" />
+            <ContainerMenu link="/settings?mode=view" text="Ver patrón actual" />
+            <ContainerMenu link="/settings?mode=config" text="Añadir patrón nuevo" />
         </div>
     );
 };

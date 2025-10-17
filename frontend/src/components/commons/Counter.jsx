@@ -13,7 +13,7 @@ export const Counter = ({ onChange, min = 0, max = 31, value = 0 }) => {
     };
 
     return (
-        <div className="flex items-center border-2 border-gray-400 bg-gray-100 rounded-lg">
+        <div className="flex items-center border-2 border-gray-400 bg-gray-200 rounded-lg">
             <button
                 type="button"
                 onClick={() => handleUpdate(count > min ? count - 1 : min)}
@@ -26,7 +26,7 @@ export const Counter = ({ onChange, min = 0, max = 31, value = 0 }) => {
                 min={min}
                 max={max}
                 onChange={(e) => handleUpdate(Number(e.target.value))}
-                className="text-center w-12 border-x border-gray-600 rounded-lg font-normal"
+                className="text-center w-12 border-x border-gray-600 rounded-lg font-normal subbg-dynamic"
             />
             <button
                 type="button"

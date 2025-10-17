@@ -14,8 +14,8 @@ export function Timer({ hour, minute, onChange }) {
     return (
         <div className="flex justify-center gap-6 px-4 items-center mt-2">
             <div className="flex flex-col">
-                <p className=" font-poppins text-purple-600 font-semibold text-sm">Hora:</p>
-                <div className="flex items-center border-2 border-gray-400 bg-gray-100 rounded-lg">
+                <p className=" font-poppins text-orange-400 font-semibold text-sm">Hora:</p>
+                <div className="flex items-center border-2 border-gray-400 bg-gray-200 rounded-lg">
                     <button
                         type="button"
                         onClick={() => onChange("hour", String((+hour + 23) % 24).padStart(2, "0"))}
@@ -31,7 +31,7 @@ export function Timer({ hour, minute, onChange }) {
                             let val = Math.max(0, Math.min(23, Number(e.target.value)));
                             onChange("hour", String(val).padStart(2, "0"));
                         }}
-                        className="text-center w-12 border-x border-gray-600 rounded-lg font-normal"
+                        className="text-center w-12 border-x subbg-dynamic border-gray-600 rounded-lg font-normal"
                     />
                     <button
                         type="button"
@@ -44,8 +44,8 @@ export function Timer({ hour, minute, onChange }) {
             </div>
 
             <div className="flex flex-col">
-                <p className=" font-poppins text-purple-600 font-semibold text-sm">Minutos:</p>
-                <div className="flex bg-gray-100 items-center justify-center border-2 border-gray-400 rounded-lg">
+                <p className=" font-poppins text-orange-400 font-semibold text-sm">Minutos:</p>
+                <div className="flex bg-gray-200 items-center justify-center border-2 border-gray-400 rounded-lg">
                     <button
                         type="button"
                         onClick={() => onChange("minute", String((+minute + 59) % 60).padStart(2, "0"))}
@@ -61,7 +61,7 @@ export function Timer({ hour, minute, onChange }) {
                             let val = Math.max(0, Math.min(59, Number(e.target.value)));
                             onChange("minute", String(val).padStart(2, "0"));
                         }}
-                        className="text-center w-12 border-x border-gray-600 rounded-lg font-normal"
+                        className="text-center w-12 subbg-dynamic border-x border-gray-600 rounded-lg font-normal"
                     />
                     <button
                         type="button"

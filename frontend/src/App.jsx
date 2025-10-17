@@ -44,7 +44,7 @@ function App() {
             <div
                 className="relative
           flex flex-col text-lg bg-white
-          w-full h-full
+          w-full h-full border border-black
           sm:max-w-[360px] sm:max-h-[720px]
           sm:rounded-2xl sm:shadow-lg
           overflow-hidden
@@ -52,7 +52,7 @@ function App() {
             >
                 <Header />
                 <Drawer />
-                <main className="flex-1 overflow-y-auto">
+                <main className="w-full h-full overflow-y-auto subbg-dynamic">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/calendar" element={<CalendarPage />} />
