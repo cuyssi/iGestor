@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import api from "./axiosInstance";
 
 export const createTurn = async (turn) => {
     const token = localStorage.getItem("token");
@@ -38,9 +36,9 @@ export const createTurn = async (turn) => {
             });
         }
 
-        console.log("📤 Enviando a backend:", payload);
+        console.log("Enviando a backend:", payload);
 
-        const response = await axios.post(`${API_URL}/turns`, payload, {
+        const response = await api.post("/turns", payload, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -48,7 +46,7 @@ export const createTurn = async (turn) => {
 
         return response.data;
     } catch (error) {
-        console.error("❌ Error al crear turno:", error.response?.data || error);
+        console.error("Error al crear turno:", error.response?.data || error);
         throw error;
     }
 };
@@ -56,7 +54,7 @@ export const createTurn = async (turn) => {
 export const getTurns = async () => {
     const token = localStorage.getItem("token");
     try {
-        const response = await axios.get(`${API_URL}/turns`, {
+        const response = await api.get("/turns", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

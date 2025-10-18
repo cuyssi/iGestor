@@ -35,39 +35,73 @@ export const Settings = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="relative w-full h-full">
-                        <h1 className="text-center text-2xl text-gray-500">Patrón actual</h1>
-                        <div className="mt-8 flex flex-wrap gap-2 w-full justify-center">{RenderDots(turns)}</div>
+                    <div className="relative w-full h-full flex flex-col items-center">
+                        <h1 className="mt-10 text-center text-2xl text-gray-500">Patrón actual</h1>
+                        <div className="mt-10 flex flex-wrap gap-2 w-full justify-center">{RenderDots(turns)}</div>
 
-                        <fieldset className="border border-gray-200 mt-6 p-4">
+                        <fieldset className="absolute bottom-20 border border-gray-200 mt-6 p-4 text-gray-500">
                             <legend className="px-2 text-gray-500">Leyenda</legend>
+
+                            {turns.some((t) => t.shift === "mañanas") &&
+                                (() => {
+                                    const morning = turns.find((t) => t.shift === "mañanas");
+                                    return (
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="w-6 h-6 rounded-full bg-blue-500 border border-gray-600"></div>
+                                            <p>
+                                                Mañanas:{" "}
+                                                <span className="text-blue-400">{morning.start_time || "--"}</span> -{" "}
+                                                <span className="text-blue-400">{morning.end_time || "--"}</span>
+                                            </p>
+                                        </div>
+                                    );
+                                })()}
+
+                            {turns.some((t) => t.shift === "tardes") &&
+                                (() => {
+                                    const afternoon = turns.find((t) => t.shift === "tardes");
+                                    return (
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="w-6 h-6 rounded-full bg-yellow-400 border border-gray-600"></div>
+                                            <p>
+                                                Tardes:{" "}
+                                                <span className="text-blue-400">{afternoon.start_time || "--"}</span> -{" "}
+                                                <span className="text-blue-400">{afternoon.end_time || "--"}</span>
+                                            </p>
+                                        </div>
+                                    );
+                                })()}
+
+                            {turns.some((t) => t.shift === "partido") &&
+                                (() => {
+                                    const match = turns.find((t) => t.shift === "partido");
+                                    return (
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="w-6 h-6 rounded-full bg-pink-400 border border-gray-600"></div>
+                                            <p>
+                                                Partido:{" "}
+                                                <span className="text-blue-400">
+                                                    {match.morning_start_time || "--"}
+                                                </span>{" "}
+                                                -{" "}
+                                                <span className="text-blue-400">
+                                                    {match.afternoon_end_time || "--"}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    );
+                                })()}
+
                             <div className="flex items-center gap-2 mt-2">
-                                <div className="w-6 h-6 rounded-full bg-blue-500 border border-gray-600"></div>
-                                <p>
-                                    Mañanas: {turns.find((t) => t.shift === "mañanas")?.start_time || "--"} -{" "}
-                                    {turns.find((t) => t.shift === "mañanas")?.end_time || "--"}
-                                </p>
-                            </div>
-                            <div className="flex items-center gap-2 mt-2">
-                                <div className="w-6 h-6 rounded-full bg-yellow-400 border border-gray-600"></div>
-                                <p>
-                                    Tardes: {turns.find((t) => t.shift === "tardes")?.start_time || "--"} -{" "}
-                                    {turns.find((t) => t.shift === "tardes")?.end_time || "--"}
-                                </p>
-                            </div>
-                            <div className="flex items-center gap-2 mt-2">
-                                <div className="w-6 h-6 rounded-full bg-pink-400 border border-gray-600"></div>
-                                <p>
-                                    Partido: {turns.find((t) => t.shift === "partido")?.morning_start_time || "--"} -{" "}
-                                    {turns.find((t) => t.shift === "partido")?.afternoon_end_time || "--"}
-                                </p>
+                                <div className="w-6 h-6 rounded-full bg-green-400 border border-gray-600"></div>
+                                <p>Descanso</p>
                             </div>
                         </fieldset>
 
-                        <div className="absolute bottom-4 w-full bg-green-400 flex justify-center">
+                        <div className="absolute bottom-4 w-[80%]">
                             <ButtonDefault
                                 onClick={removeLastBlock}
-                                className="bg-red-400 w-full text-white text-base"
+                                className="bg-red-400 w-full text-white text-base hover:bg-red-500"
                                 text="Eliminar patrón"
                             />
                         </div>

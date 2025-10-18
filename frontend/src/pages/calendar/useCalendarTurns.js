@@ -1,86 +1,100 @@
-import { useEffect, useState } from "react";
-import { getTurns } from "../../services/turnsServices";
+import { useState, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 const getTurnForDate = (date, pattern, startDate) => {
-    const totalCycleDays = pattern.reduce((sum, block) => sum + block.days, 0);
+    const totalDays = pattern.reduce((sum, block) => sum + block.days, 0);
     const diffDays = Math.floor((date - new Date(startDate)) / (1000 * 60 * 60 * 24));
-    const cycleDay = ((diffDays % totalCycleDays) + totalCycleDays) % totalCycleDays;
-    let accumulated = 0;
+    const dayInCycle = ((diffDays % totalDays) + totalDays) % totalDays;
 
+    let acc = 0;
     for (const block of pattern) {
-        accumulated += block.days;
-        if (cycleDay < accumulated) return block;
+        acc += block.days;
+        if (dayInCycle < acc) return block;
     }
-
     return null;
 };
 
 export const useCalendarTurns = () => {
+    const { turns, loading: reduxLoading } = useSelector((state) => state.turns);
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchTurns = async () => {
-            try {
-                setLoading(true);
-                const turns = await getTurns();
-                if (!turns || !turns.length) return;
+        if (!turns || !turns.length) {
+            setEvents([]);
+            setLoading(false);
+            return;
+        }
 
-                const ordered = turns.sort((a, b) => new Date(a.date) - new Date(b.date));
-                const startDate = new Date(ordered[0].date);
-                const mapped = [];
-                const today = new Date();
-                const startRange = new Date(today);
-                startRange.setFullYear(today.getFullYear() - 1);
-                const endRange = new Date(today);
-                endRange.setFullYear(today.getFullYear() + 2);
+        setLoading(true);
+        const mapped = [];
+        const ordered = [...turns].sort((a, b) => new Date(a.date) - new Date(b.date));
+        const startDate = new Date(ordered[0].date);
+        const endRange = new Date();
+        endRange.setFullYear(endRange.getFullYear() + 2);
 
-                for (let d = new Date(startRange); d <= endRange; d.setDate(d.getDate() + 1)) {
-                    const turn = getTurnForDate(d, ordered, startDate);
-                    if (!turn) continue;
+        let currentDate = new Date(startDate);
+        while (currentDate <= endRange) {
+            const block = getTurnForDate(currentDate, ordered, startDate);
+            if (block) {
+                const dateStr = currentDate.toISOString().split("T")[0];
 
-                    const dateStr = d.toISOString().split("T")[0];
-                    if (turn.type === "partido") {
-                        mapped.push({
-                            title: "P",
-                            start: `${dateStr}T${turn.morning_start_time || "09:00"}`,
-                            end: `${dateStr}T${turn.afternoon_end_time || "20:00"}`,
-                            morning_start: turn.morning_start_time,
-                            morning_end: turn.morning_end_time,
-                            afternoon_start: turn.afternoon_start_time,
-                            afternoon_end: turn.afternoon_end_time,
-                        });
-                    } else if (turn.type === "mañanas") {
-                        mapped.push({
-                            title: "M",
-                            start: `${dateStr}T${turn.start_time}`,
-                            end: `${dateStr}T${turn.end_time}`,
-                        });
-                    } else if (turn.type === "tardes") {
-                        mapped.push({
-                            title: "T",
-                            start: `${dateStr}T${turn.start_time}`,
-                            end: `${dateStr}T${turn.end_time}`,
-                        });
-                    } else {
-                        mapped.push({
-                            title: "D",
-                            start: `${dateStr}T00:00`,
-                            end: `${dateStr}T23:59`,
-                        });
-                    }
+                if (block.shift === "partido") {
+                    mapped.push({
+                        title: "P",
+                        start: `${dateStr}T${block.morning_start_time}`,
+                        end: `${dateStr}T${block.afternoon_end_time}`,
+                        morning_start: block.morning_start_time,
+                        morning_end: block.morning_end_time,
+                        afternoon_start: block.afternoon_start_time,
+                        afternoon_end: block.afternoon_end_time,
+                    });
+                } else if (block.shift === "mañanas") {
+                    mapped.push({
+                        title: "M",
+                        start: `${dateStr}T${block.start_time}`,
+                        end: `${dateStr}T${block.end_time}`,
+                    });
+                } else if (block.shift === "tardes") {
+                    mapped.push({
+                        title: "T",
+                        start: `${dateStr}T${block.start_time}`,
+                        end: `${dateStr}T${block.end_time}`,
+                    });
+                } else {
+                    mapped.push({
+                        title: "D",
+                        start: `${dateStr}T00:00`,
+                        end: `${dateStr}T23:59`,
+                    });
                 }
-
-                setEvents(mapped);
-            } catch (error) {
-                console.error("Error fetching turns for calendar:", error);
-            } finally {
-                setLoading(false);
             }
-        };
 
-        fetchTurns();
-    }, []);
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        setEvents(mapped);
+        setLoading(reduxLoading);
+    }, [turns, reduxLoading]);
 
-    return { events, loading };
+    const upcomingTurns = useMemo(() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const next3Days = [];
+        for (let i = 0; i < 3; i++) {
+            const day = new Date(today);
+            day.setDate(today.getDate() + i);
+            next3Days.push(day);
+        }
+
+        return events
+            .filter((e) => {
+                const eventDate = new Date(e.start);
+                eventDate.setHours(0, 0, 0, 0);
+                return next3Days.some((d) => d.getTime() === eventDate.getTime());
+            })
+            .sort((a, b) => new Date(a.start) - new Date(b.start));
+    }, [events]);
+
+    return { events, upcomingTurns, loading };
 };

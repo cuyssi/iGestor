@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import api from "./axiosInstance";
 
 export const createUser = async ({ name, email, password }) => {
     try {
-        const response = await axios.post(`${API_URL}/users`, {
+        const response = await api.post("/users", {
             name,
             email,
             password,

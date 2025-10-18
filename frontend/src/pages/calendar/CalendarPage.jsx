@@ -59,6 +59,8 @@ export const CalendarPage = () => {
             </div>
 
             <FullCalendar
+                timeZone="local"
+                initialDate={new Date()}
                 ref={calendarRef}
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
@@ -96,14 +98,10 @@ export const CalendarPage = () => {
                     </div>
                 )}
                 datesSet={(info) => {
-                    const date = info.start;
-                    const formatted = new Intl.DateTimeFormat("es-ES", {
-                        month: "long",
-                        year: "numeric",
-                    })
-                        .format(date)
-                        .replace(" de ", " ")
-                        .replace(/^\w/, (c) => c.toUpperCase());
+                    const firstDay = info.view.currentStart;
+                    const monthName = firstDay.toLocaleString("es-ES", { month: "long" });
+                    const year = firstDay.getFullYear();
+                    const formatted = monthName.charAt(0).toUpperCase() + monthName.slice(1) + " " + year;
                     setTitle(formatted);
                 }}
             />

@@ -7,11 +7,15 @@ from app.schemas import TurnCreate
 from app.models import Turn
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import UserLogin
+from jose import jwt, JWTError
 from app.security import (
     verify_password,
     create_access_token,
     get_password_hash,
     get_current_user,
+    create_refresh_token,
+    SECRET_KEY,
+    ALGORITHM,
 )
 
 app = FastAPI()
@@ -43,14 +47,32 @@ def login(user_data: UserLogin, db: Session = Depends(get_db)):
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 
-    token = create_access_token(data={"sub": user.email})
-    return {"access_token": token, "token_type": "bearer"}
+    access_token = create_access_token({"sub": user.email})
+    refresh_token = create_refresh_token({"sub": user.email})
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer",
+    }
+
+
+@app.post("/refresh")
+def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
+    try:
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        if email is None:
+            raise HTTPException(status_code=401, detail="Token inválido")
+
+        new_access_token = create_access_token({"sub": email})
+        return {"access_token": new_access_token}
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Refresh token inválido o expirado")
 
 
 @app.post("/users", response_model=UserSchema)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user.password[:60])
-
     new_user = User(name=user.name, email=user.email, hashed_password=hashed_password)
     db.add(new_user)
     db.commit()

@@ -19,7 +19,7 @@ export const RenderDots = (blocksToRender) => {
         return Array.from({ length: count }).map((_, i) => (
             <div
                 key={`${index}-${i}`}
-                className={`w-9 h-9 rounded-full ${color} border border-gray-600 flex justify-center items-center text-white`}
+                className={`w-9 h-9 rounded-full ${color} border border-gray-500 flex justify-center items-center text-white shadow-[0_4px_8px_rgba(0,0.5,0.5,0.5)]`}
                 title={`${block.shift} día ${i + 1}`}
             >
                 {block.shift?.[0].toUpperCase()}
