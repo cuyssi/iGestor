@@ -96,5 +96,17 @@ export const useCalendarTurns = () => {
             .sort((a, b) => new Date(a.start) - new Date(b.start));
     }, [events]);
 
-    return { events, upcomingTurns, loading };
+    const upcomingRests = useMemo(() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const rests = events
+            .filter((e) => e.title === "D")
+            .filter((e) => new Date(e.start) >= today)
+            .sort((a, b) => new Date(a.start) - new Date(b.start));
+
+        return rests.slice(0, 3);
+    }, [events]);
+
+    return { events, upcomingTurns, upcomingRests, loading };
 };

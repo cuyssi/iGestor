@@ -1,20 +1,11 @@
-const shiftColors = {
-    mañanas: "bg-blue-400",
-    tardes: "bg-yellow-400",
-    partido: "bg-orange-400",
-    noches: "bg-purple-500",
-    descanso: "bg-green-500",
-};
+import { shiftColors } from "../../utils/constants";
 
 export const RenderDots = (blocksToRender) => {
     if (!blocksToRender || !blocksToRender.length) return null;
-    console.log("🔎 blocksToRender:", blocksToRender);
 
     return blocksToRender.flatMap((block, index) => {
         const color = shiftColors[block.shift];
-        console.log("🔵 Renderizando bloque:", block, "con color:", color);
         const count = block.days;
-        console.log("🔢 Días en el bloque:", count);
 
         return Array.from({ length: count }).map((_, i) => (
             <div
