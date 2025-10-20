@@ -1,10 +1,11 @@
 export const shiftColors = {
-    mañanas: "bg-blue-200",
-    tardes: "bg-yellow-200",
-    partido: "bg-orange-200",
-    noches: "bg-purple-200",
-    descanso: "bg-green-200",
+    mañanas: "bg-blue-300",
+    tardes: "bg-yellow-300",
+    partido: "bg-orange-300",
+    noches: "bg-purple-300",
+    descanso: "bg-green-300",
 };
+
 export const turnLabels = {
     M: "mañanas",
     T: "tardes",

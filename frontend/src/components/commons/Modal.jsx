@@ -10,10 +10,10 @@ export const Modal = ({ open, onClose, children, text, className }) => {
                 open ? "opacity-100 visible" : "opacity-0 invisible"
             }`}
         >
-            <div className={twMerge("relative flex flex-col bg-white rounded-xl p-2", className)}>
+            <div className={twMerge("relative flex flex-col bg-white rounded-xl p-4", className)}>
                 <ButtonClose size="35" className="absolute top-0 right-0" onClick={onClose} />
                 {children}
-                <p className="mt-8 text-center">{text}</p>
+                {text && <p className="mt-8 text-center">{text}</p>}
             </div>
         </div>
     );

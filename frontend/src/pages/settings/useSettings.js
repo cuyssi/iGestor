@@ -38,6 +38,8 @@ export const useSettings = () => {
                         morning_end_time: `${splitShift.mañana.endHour}:${splitShift.mañana.endMinute}`,
                         afternoon_start_time: `${splitShift.tarde.hour}:${splitShift.tarde.minute}`,
                         afternoon_end_time: `${splitShift.tarde.endHour}:${splitShift.tarde.endMinute}`,
+                        night_start_time: `${splitShift.noche.hour}:${splitShift.noche.minute}`,
+                        night_end_time: `${splitShift.noche.endHour}:${splitShift.noche.endMinute}`,
                         shift: "partido",
                     };
                 } else {

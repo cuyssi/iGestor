@@ -11,6 +11,7 @@ class UserLogin(BaseModel):
 class UserBase(BaseModel):
     name: str
     email: str
+    role: str
 
 
 class UserCreate(UserBase):
@@ -24,6 +25,13 @@ class UserSchema(UserBase):
     model_config = {"from_attributes": True}
 
 
+class UserUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
+    role: Optional[str] = None
+
+
 class TurnCreate(BaseModel):
     date: datetime
     start_time: Optional[str] = None
@@ -34,3 +42,5 @@ class TurnCreate(BaseModel):
     morning_end_time: Optional[str] = None
     afternoon_start_time: Optional[str] = None
     afternoon_end_time: Optional[str] = None
+    night_start_time: Optional[str] = None
+    night_end_time: Optional[str] = None

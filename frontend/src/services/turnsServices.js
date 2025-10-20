@@ -11,6 +11,8 @@ export const createTurn = async (turn) => {
         morning_end_time,
         afternoon_start_time,
         afternoon_end_time,
+        night_start_time,
+        night_end_time,
         shift,
         days,
     } = turn;
@@ -28,6 +30,8 @@ export const createTurn = async (turn) => {
                 morning_end_time,
                 afternoon_start_time,
                 afternoon_end_time,
+                night_start_time,
+                night_end_time,
             });
         } else {
             Object.assign(payload, {

@@ -9,7 +9,7 @@ export const Input = ({ label, type, placeholder, className, onChange, ...props 
 
     return (
         <div className="relative w-full mb-3">
-            {label && <label className="text-base text-gray-600">{label}</label>}
+            {label && <label className="text-base subtext-dynamic">{label}</label>}
             <div className="relative">
                 <input
                     type={inputType}

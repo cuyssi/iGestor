@@ -1,5 +1,5 @@
 import { postLogin } from "../../services/loginService";
-import { getCurrentUser } from "../../services/userService";
+import { getCurrentUser } from "../../services/userServices";
 import { useDispatch } from "react-redux";
 import { closeDrawer } from "../drawer/DrawerSlice";
 import { login } from "./AuthSlice";

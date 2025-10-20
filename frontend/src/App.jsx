@@ -3,13 +3,14 @@ import { Header } from "./components/commons/Header";
 import { Drawer } from "./components/drawer/Drawer";
 import { Footer } from "./components/commons/Footer";
 import { Home } from "./pages/home/Home";
+import { Profile } from "./pages/profile/Profile";
 import { Settings } from "./pages/settings/Settings";
 import { CalendarPage } from "./pages/calendar/CalendarPage";
 import { ModalRegister } from "./components/register/ModalRegister";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "./components/register/modalRegisterSlice";
 import { useEffect } from "react";
-import { getCurrentUser } from "./services/userService";
+import { getCurrentUser } from "./services/userServices";
 import { login, setTokenFromStorage } from "./components/login/AuthSlice";
 
 import "./App.css";
@@ -57,6 +58,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/calendar" element={<CalendarPage />} />
                         <Route path="/settings" element={<Settings />} />
+                        <Route path="/profile" element={<Profile />} />
                     </Routes>
                     <ModalRegister open={openModal} onClose={() => dispatch(closeModal())} />
                 </main>

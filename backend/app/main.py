@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
-from app.schemas import UserCreate, UserSchema
+from app.schemas import UserCreate, UserSchema, UserUpdate
 from app.schemas import TurnCreate
 from app.models import Turn
 from fastapi.middleware.cors import CORSMiddleware
@@ -73,7 +73,12 @@ def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
 @app.post("/users", response_model=UserSchema)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user.password[:60])
-    new_user = User(name=user.name, email=user.email, hashed_password=hashed_password)
+    new_user = User(
+        name=user.name,
+        email=user.email,
+        hashed_password=hashed_password,
+        role=user.role,
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -106,6 +111,8 @@ def create_turn(
         morning_end_time=turn.morning_end_time,
         afternoon_start_time=turn.afternoon_start_time,
         afternoon_end_time=turn.afternoon_end_time,
+        night_start_time=turn.night_start_time,
+        night_end_time=turn.night_end_time,
         user_id=current_user.id,
     )
     db.add(new_turn)
@@ -119,3 +126,35 @@ def get_turns(
     db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
 ):
     return db.query(Turn).filter(Turn.user_id == current_user.id).all()
+
+
+@app.put("/me", response_model=UserSchema)
+def update_my_profile(
+    user_update: UserUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    user = db.query(User).filter(User.id == current_user.id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    update_data = user_update.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        if field == "password":
+            setattr(user, "hashed_password", get_password_hash(value))
+        else:
+            setattr(user, field, value)
+
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user)
+    db.commit()
+    return {"message": "User deleted successfully"}

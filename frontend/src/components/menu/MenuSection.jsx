@@ -14,6 +14,7 @@ export const MenuSection = () => {
                 <>
                     <ContainerMenu link="/settings?mode=view" text="Ver patrón actual" />
                     <ContainerMenu link="/settings?mode=config" text="Añadir patrón nuevo" />
+                    <ContainerMenu link="/profile" text="Gestión del perfil" />
                 </>
             ) : (
                 ""

@@ -10,6 +10,7 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
+    role = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     turns = relationship("Turn", back_populates="user")
 
@@ -27,5 +28,7 @@ class Turn(Base):
     morning_end_time = Column(String, nullable=True)
     afternoon_start_time = Column(String, nullable=True)
     afternoon_end_time = Column(String, nullable=True)
+    night_start_time = Column(String, nullable=True)
+    night_end_time = Column(String, nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="turns")

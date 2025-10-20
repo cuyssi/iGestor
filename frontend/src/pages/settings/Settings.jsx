@@ -17,9 +17,6 @@ export const Settings = () => {
 
     if (mode === "view" && loading) return <p>Cargando patrón...</p>;
 
-    console.log("🔎 mode actual:", mode);
-    console.log("🌀 turns desde Redux:", turns);
-
     return (
         <div className="w-full h-full flex flex-col p-4 subbg-dynamic space-y-4 items-center">
             {mode === "view" ? (
@@ -28,7 +25,7 @@ export const Settings = () => {
                         <h1 className="mt-8 text-center text-2xl text-red-400">Aún no tienes ningún patrón guardado</h1>
                         <div className="p-4 w-full">
                             <ButtonDefault
-                                className="mt-10 w-full h-auto text-blue-400"
+                                className="mt-10 w-full h-auto text-white"
                                 onClick={() => navigate("/settings?mode=config")}
                                 text="Crear patrón nuevo"
                             />
@@ -47,10 +44,12 @@ export const Settings = () => {
                                     const morning = turns.find((t) => t.shift === "mañanas");
                                     return (
                                         <div className="flex items-center gap-2 mt-2">
-                                            <div className="w-6 h-6 rounded-full bg-blue-500 border border-gray-600"></div>
+                                            <div className="w-6 h-6 rounded-full bg-blue-300 border border-gray-600"></div>
                                             <p>
-                                                Mañanas:{" "}
-                                                <span className="text-blue-400">{morning.start_time || "--"}</span> -{" "}
+                                                Mañanas:
+                                                <span className="text-blue-400">
+                                                    {morning.start_time || "--"}
+                                                </span> -{" "}
                                                 <span className="text-blue-400">{morning.end_time || "--"}</span>
                                             </p>
                                         </div>
@@ -62,11 +61,26 @@ export const Settings = () => {
                                     const afternoon = turns.find((t) => t.shift === "tardes");
                                     return (
                                         <div className="flex items-center gap-2 mt-2">
-                                            <div className="w-6 h-6 rounded-full bg-yellow-400 border border-gray-600"></div>
+                                            <div className="w-6 h-6 rounded-full bg-yellow-300 border border-gray-600"></div>
                                             <p>
                                                 Tardes:{" "}
                                                 <span className="text-blue-400">{afternoon.start_time || "--"}</span> -{" "}
                                                 <span className="text-blue-400">{afternoon.end_time || "--"}</span>
+                                            </p>
+                                        </div>
+                                    );
+                                })()}
+
+                            {turns.some((t) => t.shift === "noches") &&
+                                (() => {
+                                    const night = turns.find((t) => t.shift === "noches");
+                                    return (
+                                        <div className="flex items-center gap-2 mt-2">
+                                            <div className="w-6 h-6 rounded-full bg-yellow-300 border border-gray-600"></div>
+                                            <p>
+                                                Noches:
+                                                <span className="text-blue-400">{night.start_time || "--"}</span> -{" "}
+                                                <span className="text-blue-400">{night.end_time || "--"}</span>
                                             </p>
                                         </div>
                                     );
@@ -77,7 +91,7 @@ export const Settings = () => {
                                     const match = turns.find((t) => t.shift === "partido");
                                     return (
                                         <div className="flex items-center gap-2 mt-2">
-                                            <div className="w-6 h-6 rounded-full bg-pink-400 border border-gray-600"></div>
+                                            <div className="w-6 h-6 rounded-full bg-orange-300 border border-gray-600"></div>
                                             <p>
                                                 Partido:{" "}
                                                 <span className="text-blue-400">
@@ -93,7 +107,7 @@ export const Settings = () => {
                                 })()}
 
                             <div className="flex items-center gap-2 mt-2">
-                                <div className="w-6 h-6 rounded-full bg-green-400 border border-gray-600"></div>
+                                <div className="w-6 h-6 rounded-full bg-green-300 border border-gray-600"></div>
                                 <p>Descanso</p>
                             </div>
                         </fieldset>

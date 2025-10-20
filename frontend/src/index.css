@@ -70,5 +70,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
-    -moz-appearance: textfield
+    -moz-appearance: textfield;
+}
+
+.fc-day-today {
+    background-color: #9fc6e0 !important;
 }

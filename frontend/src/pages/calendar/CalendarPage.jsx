@@ -74,14 +74,17 @@ export const CalendarPage = () => {
                 eventContent={(arg) => (
                     <div
                         style={{
+                            color: "#6B7280",
                             backgroundColor:
                                 arg.event.title === "M"
-                                    ? "#27D6F5"
+                                    ? "#93C5FD"
                                     : arg.event.title === "T"
-                                    ? "#F2C950"
+                                    ? "#FDE047"
+                                    : arg.event.title === "N"
+                                    ? "#C4B5FD"
                                     : arg.event.title === "P"
-                                    ? "#F07E3A"
-                                    : "#9EF252",
+                                    ? "##FDBA74"
+                                    : "#86EFAC",
                             borderRadius: "6px",
                             width: "100%",
                             height: "auto",

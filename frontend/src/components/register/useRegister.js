@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 import { closeModal } from "./modalRegisterSlice";
-import { createUser } from "../../services/createUser";
+import { createUser, getCurrentUser } from "../../services/userServices";
 import { postLogin } from "../../services/loginService";
-import { getCurrentUser } from "../../services/userService";
 import { closeDrawer } from "../drawer/DrawerSlice";
 import { login } from "../login/AuthSlice";
 
@@ -11,7 +10,7 @@ const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-export const useRegister = (name, email, password) => {
+export const useRegister = (name, email, password, role) => {
     const dispatch = useDispatch();
 
     const onSubmit = async (e) => {
@@ -23,6 +22,7 @@ export const useRegister = (name, email, password) => {
                 name: capitalize(name),
                 email,
                 password,
+                role,
             });
             const token = await postLogin(email, password);
             localStorage.setItem("token", token.access_token);
@@ -31,7 +31,7 @@ export const useRegister = (name, email, password) => {
             dispatch(closeModal());
             dispatch(closeDrawer());
 
-            console.log("Registro y login exitoso ✅");
+            console.log("Registro y login exitoso");
         } catch (error) {
             console.error("Error en registro/login:", error);
         }
