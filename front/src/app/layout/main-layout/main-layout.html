@@ -1,0 +1,29 @@
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand__mark">iG</span>
+      <span class="brand__name">iGestor</span>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Navegacion principal">
+      <a routerLink="/home" routerLinkActive="is-active">Inicio</a>
+    </nav>
+  </aside>
+
+  <section class="workspace">
+    <header class="topbar">
+      <div>
+        <p class="topbar__eyebrow">Panel</p>
+        <h1>Inicio</h1>
+      </div>
+
+      <button type="button" class="user-button">
+        CY
+      </button>
+    </header>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </section>
+</div>
