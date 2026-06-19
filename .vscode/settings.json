@@ -1,0 +1,15 @@
+{
+  "karmaTestExplorer.enableExtension": true,
+  "karmaTestExplorer.projectWorkspaces": [
+    {
+      "rootPath": "front",
+      "projectType": "angular",
+      "testFramework": "jasmine",
+      "testFiles": ["src/**/*.spec.ts"]
+    }
+  ],
+  "karmaTestExplorer.testTriggerMethod": "cli",
+  "karmaTestExplorer.autoWatchEnabled": false,
+  "karmaTestExplorer.logLevel": "info",
+  "karmaTestExplorer.karmaLogLevel": "warn"
+}
