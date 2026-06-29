@@ -42,7 +42,7 @@ Respuesta esperada:
 
 ```json
 {
-  "status": "UP"
+    "status": "UP"
 }
 ```
 
@@ -51,6 +51,24 @@ Si la aplicación está arrancada en el puerto `8080`, usar:
 ```bash
 curl.exe http://localhost:8080/health
 ```
+
+## Documentación de la API
+
+El backend expone documentación interactiva de la API mediante Swagger UI.
+
+Con la aplicación arrancada, se puede abrir en:
+
+```bash
+http://localhost:8081/swagger-ui/index.html
+```
+
+Si la aplicación está arrancada en el puerto `8080`, usar:
+
+```bash
+http://localhost:8080/swagger-ui/index.html
+```
+
+Desde Swagger UI se pueden visualizar y probar los endpoints disponibles, como `GET /health`.
 
 ## Ramas de trabajo
 
