@@ -22,12 +22,12 @@ Desde la carpeta `back`:
 mvn spring-boot:run
 ```
 
-Por defecto, la aplicación intenta arrancar en el puerto `8080`.
+Por defecto, la aplicación arranca en el puerto `8081` para evitar conflictos con otros proyectos locales.
 
-Si el puerto `8080` está ocupado, se puede arrancar temporalmente en otro puerto:
+Si se necesita usar otro puerto, se puede sobrescribir con la variable `SERVER_PORT`:
 
 ```bash
-mvn spring-boot:run "-Dspring-boot.run.arguments=--server.port=8081"
+mvn spring-boot:run "-Dspring-boot.run.arguments=--server.port=8082"
 ```
 
 ## Endpoint de comprobación
@@ -46,11 +46,43 @@ Respuesta esperada:
 }
 ```
 
-Si la aplicación está arrancada en el puerto `8080`, usar:
+## Base de datos local
+
+El backend usa PostgreSQL en desarrollo mediante Docker Compose.
+
+Para levantar la base de datos desde la carpeta `back`:
 
 ```bash
-curl.exe http://localhost:8080/health
+docker compose up -d
 ```
+
+PostgreSQL queda disponible en:
+
+```text
+localhost:5433
+```
+
+Credenciales locales:
+
+```text
+Database: igestor
+User: igestor
+Password: igestor
+```
+
+Para comprobar el estado del contenedor:
+
+```bash
+docker compose ps
+```
+
+Para parar la base de datos:
+
+```bash
+docker compose down
+```
+
+Este comando detiene el contenedor, pero conserva los datos en el volumen de Docker.
 
 ## Documentación de la API
 
@@ -60,12 +92,6 @@ Con la aplicación arrancada, se puede abrir en:
 
 ```bash
 http://localhost:8081/swagger-ui/index.html
-```
-
-Si la aplicación está arrancada en el puerto `8080`, usar:
-
-```bash
-http://localhost:8080/swagger-ui/index.html
 ```
 
 Desde Swagger UI se pueden visualizar y probar los endpoints disponibles, como `GET /health`.

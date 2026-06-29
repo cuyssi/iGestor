@@ -1,0 +1,17 @@
+name: igestor-back
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: igestor-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: igestor
+      POSTGRES_USER: igestor
+      POSTGRES_PASSWORD: igestor
+    volumes:
+      - igestor_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  igestor_postgres_data:
