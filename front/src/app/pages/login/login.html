@@ -1,1 +1,32 @@
-<p>login works!</p>
+<main class="login-page min-h-screen w-full bg-base-100 text-white flex flex-col items-center">
+  <section class="login-panel flex flex-col items-center">
+    <h1 class="shadowed mt-35 text-5xl lg:text-8xl font-bold text-teal-500">iGestor</h1>
+
+    <form
+      class="login-form mt-14 flex flex-col justify-start items-center py-4 px-12 rounded-md bg-neutral-content shadow-2xl border border-base-content/10"
+    >
+      <div class="w-full space-y-6">
+        <label class="flex items-center gap-3 border-b border-primary py-3">
+          <svg lucideUser class="size-4 text-slate-400"></svg>
+          <input
+            type="text"
+            placeholder="Login"
+            class="w-full bg-transparent text-sm text-white placeholder:text-slate-500 outline-none"
+          />
+        </label>
+
+        <label class="flex items-center gap-3 border-b border-primary py-3">
+          <svg lucideLock class="size-4 text-slate-400"></svg>
+          <input
+            type="password"
+            placeholder="Password"
+            class="w-full bg-transparent text-sm text-slate-800 placeholder:text-slate-500 outline-none"
+          />
+        </label>
+      </div>
+      <section class="mt-2 w-full flex justify-end">
+        <app-button type="button" class="mt-4" (click)="login()"> Entrar </app-button>
+      </section>
+    </form>
+  </section>
+</main>
