@@ -1,0 +1,66 @@
+:host {
+  display: inline-block;
+}
+
+.shine-button {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background: linear-gradient(180deg, #2dd4bf 0%, #14b8a6 52%, #0f9f91 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 0 -2px 0 rgb(4 47 46 / 0.22),
+    0 8px 14px rgb(15 23 42 / 0.24);
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    filter 160ms ease;
+}
+
+.shine-button::before {
+  content: "";
+  position: absolute;
+  inset: 1px 2px auto;
+  height: 42%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.45), transparent);
+  pointer-events: none;
+}
+
+.shine-button::after {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -80%;
+  width: 34%;
+  height: 240%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.35) 48%,
+    transparent 100%
+  );
+  transform: rotate(22deg);
+  transition: left 520ms ease;
+  pointer-events: none;
+}
+
+.shine-button:hover {
+  filter: brightness(1.03);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.65),
+    inset 0 -2px 0 rgb(4 47 46 / 0.24),
+    0 11px 18px rgb(15 23 42 / 0.28);
+}
+
+.shine-button:hover::after {
+  left: 125%;
+}
+
+.shine-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgb(4 47 46 / 0.28),
+    0 4px 8px rgb(15 23 42 / 0.2);
+}

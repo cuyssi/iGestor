@@ -1,0 +1,16 @@
+.shadowed {
+  text-shadow: 1px 3px 3px rgb(15 23 42 / 0.4);
+}
+
+main {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.20), rgb(255 255 255 / 0.30)),
+    url('/assets/login-kitchen-team-bg-v2.png');
+  background-size: cover;
+  background-position: center;
+}
+
+:host-context([data-theme='dark']) main {
+  background-image:
+    linear-gradient(rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.55)), url('/assets/login-kitchen-team-bg-v2.png');
+}
