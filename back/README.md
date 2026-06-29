@@ -52,6 +52,44 @@ Si la aplicación está arrancada en el puerto `8080`, usar:
 curl.exe http://localhost:8080/health
 ```
 
+## Base de datos local
+
+El backend usa PostgreSQL en desarrollo mediante Docker Compose.
+
+Para levantar la base de datos desde la carpeta `back`:
+
+```bash
+docker compose up -d
+```
+
+PostgreSQL queda disponible en:
+
+```text
+localhost:5433
+```
+
+Credenciales locales:
+
+```text
+Database: igestor
+User: igestor
+Password: igestor
+```
+
+Para comprobar el estado del contenedor:
+
+```bash
+docker compose ps
+```
+
+Para parar la base de datos:
+
+```bash
+docker compose down
+```
+
+Este comando detiene el contenedor, pero conserva los datos en el volumen de Docker.
+
 ## Documentación de la API
 
 El backend expone documentación interactiva de la API mediante Swagger UI.
