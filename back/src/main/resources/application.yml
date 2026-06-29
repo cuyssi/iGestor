@@ -2,5 +2,10 @@ spring:
   application:
     name: igestor-back
 
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/igestor}
+    username: ${DB_USERNAME:igestor}
+    password: ${DB_PASSWORD:igestor}
+
 server:
-  port: 8080
+  port: ${SERVER_PORT:8081}
