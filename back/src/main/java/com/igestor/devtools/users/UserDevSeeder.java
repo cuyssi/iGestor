@@ -20,7 +20,7 @@ public class UserDevSeeder implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         createInitialAdminUserUseCase.execute(
                 "admin@igestor.local",
-                "$2a$10$yLjxw1oA7F7vqB8h3rddQumVnVo8I6zYcr9mR7cdD.Kh0jrg0Yv2a",
+                "$2a$10$tDWET/272CW4yzY.ai4tPOLRUirENb5i.zMRnKunq5r9PbMUEqN..",
                 "Admin iGestor"
         );
     }

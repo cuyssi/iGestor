@@ -18,3 +18,10 @@ spring:
                 format_sql: true
 server:
     port: ${SERVER_PORT:8081}
+
+app:
+    security:
+        jwt:
+            issuer: igestor
+            secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me-change-me}
+            access-token-ttl: 15m
