@@ -1,0 +1,13 @@
+package com.igestor.persistence.jpa.repositories;
+
+import com.igestor.persistence.jpa.entities.UserJpaEntity;
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SpringDataUserJpaRepository extends JpaRepository<UserJpaEntity, UUID> {
+
+    Optional<UserJpaEntity> findByEmail(String email);
+
+    boolean existsByEmail(String email);
+}
