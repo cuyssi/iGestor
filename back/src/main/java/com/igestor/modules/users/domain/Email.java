@@ -7,10 +7,10 @@ public record Email(String value) {
             throw new IllegalArgumentException("Email is required");
         }
 
-        if (!value.contains("@")) {
+        value = value.trim().toLowerCase();
+
+        int at = value.indexOf('@');
+        if (at <= 0 || at != value.lastIndexOf('@') || at == value.length() - 1) {
             throw new IllegalArgumentException("Email must be valid");
         }
-
-        value = value.trim().toLowerCase();
-    }
 }
